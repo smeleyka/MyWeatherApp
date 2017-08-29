@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MyWeatherApp</string>
+    <string name="select_city">Выберете город</string>
+    <string name="butt_show_wheather">Показать погоду</string>
+    <string name="city_list">Список городов</string>
+    <string name="weather_cast">Прогноз погоды</string>
+
+    <string-array name="city_list">Список городов>
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+        <item>Новосибирск</item>
+        <item>Екатеринбург</item>
+        <item>Нижний Новгород</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_city"
+        android:textSize="18sp"/>
+
+    <Spinner
+        android:layout_marginTop="10dp"
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/city_list"
+        android:textSize="17sp"/>
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/butt_show_wheather"
+        android:textSize="14dp"/>
+
+    <TextView
+        android:id="@+id/weather_cast"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/weather_cast"
+        android:textSize="14sp"/>
+
+</LinearLayout>
