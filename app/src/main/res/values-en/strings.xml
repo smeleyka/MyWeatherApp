@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Weather App</string>
+    <string name="butt_show_wheather">Show weather</string>
+    <string name="select_city">Select City</string>
+    <string name="weather_cast">Weather forecast</string>
+
+    <string-array name="city_list">City List>
+    <item>Moscow</item>
+    <item>Saint-Petersburg</item>
+    <item>Novosibirsk</item>
+    <item>Yekaterinburg</item>
+    <item>Nizhniy Novgorod</item>
+    </string-array>
+
+    <string-array name="weather_list">
+        <item>+14 Overcast</item>
+        <item>+18 Mostly clear</item>
+        <item>+23 Clear</item>
+        <item>+13 Overcast and showers</item>
+        <item>+16 Partly cloudy</item>
+    </string-array>
+
+</resources>
