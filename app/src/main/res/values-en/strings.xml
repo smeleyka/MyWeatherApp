@@ -5,7 +5,7 @@
     <string name="select_city">Select City</string>
     <string name="weather_cast">Weather forecast</string>
 
-    <string-array name="city_list">City List>
+    <string-array name="city_list">City List
     <item>Moscow</item>
     <item>Saint-Petersburg</item>
     <item>Novosibirsk</item>
