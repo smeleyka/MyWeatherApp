@@ -5,6 +5,8 @@
     <string name="weather_cast">Прогноз погоды</string>
     <string name="button_send_text">Поделись погодой</string>
     <string name="for_who_textedit">Кому отправить</string>
+    <string name="back_btn_text">Вернись домой</string>
+    <string name="error">Нет подходящих Активити</string>
 
     <string-array name="city_list">Список городов>
         <item>Москва</item>

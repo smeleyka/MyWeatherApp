@@ -14,6 +14,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "MyPrefsFile";
     private static final String WEATHER_ACTIVITY_INTENT = "weather_act";
+    private static final int WEATHER_ACTIVITY_RCODE = 666;
     private WeatherCast weathercast;
     private Spinner spinner;
     private Button button;
@@ -50,10 +51,16 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    public void to_weather_activity(String weather){
+    private void to_weather_activity(String weather){
         Intent intent = new Intent(MainActivity.this,WeatherActivity.class);
         intent.putExtra(WEATHER_ACTIVITY_INTENT,weather);
-        startActivity(intent);
+        startActivityForResult(intent,WEATHER_ACTIVITY_RCODE);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) {return;}
+        String name = data.getStringExtra(WEATHER_ACTIVITY_INTENT);
+        textView.setText(name);
+    }
 }

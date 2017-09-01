@@ -6,6 +6,8 @@
     <string name="weather_cast">Weather forecast</string>
     <string name="button_send_text">Share weather</string>
     <string name="for_who_textedit">Reciever</string>
+    <string name="back_btn_text">Back Home</string>
+    <string name="error">No Activity</string>
 
     <string-array name="city_list">City List
     <item>Moscow</item>

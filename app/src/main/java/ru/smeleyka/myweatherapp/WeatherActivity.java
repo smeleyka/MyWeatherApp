@@ -14,6 +14,7 @@ public class WeatherActivity extends AppCompatActivity {
     private static final String WEATHER_ACTIVITY_INTENT = "weather_act";
     TextView textView;
     Button buttonSend;
+    Button buttonBack;
     EditText edittext;
 
     @Override
@@ -24,20 +25,30 @@ public class WeatherActivity extends AppCompatActivity {
         Bundle b = intent.getExtras();
         textView = (TextView) findViewById(R.id.weather_text_view);
         buttonSend = (Button) findViewById(R.id.button_send);
+        buttonBack = (Button) findViewById(R.id.button_back);
         edittext = (EditText) findViewById(R.id.editText);
         if (b != null) {
             textView.setText((String) b.get(WEATHER_ACTIVITY_INTENT));
         }
+
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sendSms((String) textView.getText(), edittext.getText().toString());
             }
         });
+
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                returnActivityResult(edittext.getText().toString());
+            }
+        });
+
     }
 
 
-    public void sendSms(String sms, String who) {
+    private void sendSms(String sms, String who) {
         PackageManager pm = getPackageManager();
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.putExtra("address", who);
@@ -45,8 +56,14 @@ public class WeatherActivity extends AppCompatActivity {
         intent.setType("vnd.android-dir/mms-sms");
         if (intent.resolveActivity(pm) != null) {
             startActivity(intent);
-        }
-        else Log.d("Error", "Нет подходящих Активити");
+        } else Log.d("Error", getString(R.string.error));
+    }
+
+    private void returnActivityResult(String result) {
+        Intent intent = new Intent();
+        intent.putExtra(WEATHER_ACTIVITY_INTENT, result);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 }
