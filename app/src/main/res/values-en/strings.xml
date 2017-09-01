@@ -4,6 +4,8 @@
     <string name="butt_show_wheather">Show weather</string>
     <string name="select_city">Select City</string>
     <string name="weather_cast">Weather forecast</string>
+    <string name="button_send_text">Share weather</string>
+    <string name="for_who_textedit">Reciever</string>
 
     <string-array name="city_list">City List
     <item>Moscow</item>

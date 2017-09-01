@@ -1,7 +1,9 @@
 package ru.smeleyka.myweatherapp;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.setText(weathercast.get_weather(spinner.getSelectedItemPosition()));
+                //textView.setText(weathercast.get_weather(spinner.getSelectedItemPosition()));
+                to_weather_activity(weathercast.get_weather(spinner.getSelectedItemPosition()));
             }
         });
     }
@@ -47,4 +50,20 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt("spinner", spinner.getSelectedItemPosition());
         editor.commit();
     }
+
+    public void to_weather_activity(String weather){
+        Intent intent = new Intent(MainActivity.this,WeatherActivity.class);
+        intent.putExtra("weatherActivity",weather);
+        startActivity(intent);
+    }
+    public void to_googlemaps(){
+        Uri gmmIntentUri = Uri.parse("google.streetview:cbll=46.414382,10.013988");
+
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+
+        startActivity(mapIntent);
+
+    }
+
 }
