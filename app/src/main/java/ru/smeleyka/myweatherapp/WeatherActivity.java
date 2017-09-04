@@ -11,7 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class WeatherActivity extends AppCompatActivity {
+    private static final String TAG = "WeatherActivity";
     private static final String WEATHER_ACTIVITY_INTENT = "weather_act";
+    private static final int WEATHER_ACTIVITY_RCODE = 666;
     TextView textView;
     Button buttonSend;
     Button buttonBack;
@@ -20,6 +22,7 @@ public class WeatherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG,"CREATE");
         setContentView(R.layout.activity_weather);
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
@@ -34,7 +37,7 @@ public class WeatherActivity extends AppCompatActivity {
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendSms((String) textView.getText(), edittext.getText().toString());
+               sendSms((String) textView.getText(), edittext.getText().toString());
             }
         });
 
@@ -47,16 +50,19 @@ public class WeatherActivity extends AppCompatActivity {
 
     }
 
-
     private void sendSms(String sms, String who) {
-        PackageManager pm = getPackageManager();
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.putExtra("address", who);
         intent.putExtra("sms_body", sms);
         intent.setType("vnd.android-dir/mms-sms");
-        if (intent.resolveActivity(pm) != null) {
+        if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         } else Log.d("Error", getString(R.string.error));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void returnActivityResult(String result) {
@@ -64,6 +70,47 @@ public class WeatherActivity extends AppCompatActivity {
         intent.putExtra(WEATHER_ACTIVITY_INTENT, result);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG,"START");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG,"RESUME");
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG,"PAUSE");
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG,"RESTART");
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG,"STOP");
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG,"DESTROY");
+
     }
 
 }
