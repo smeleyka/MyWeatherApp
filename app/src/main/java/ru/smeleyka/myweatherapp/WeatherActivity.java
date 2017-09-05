@@ -60,10 +60,6 @@ public class WeatherActivity extends AppCompatActivity {
         } else Log.d("Error", getString(R.string.error));
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 
     private void returnActivityResult(String result) {
         Intent intent = new Intent();

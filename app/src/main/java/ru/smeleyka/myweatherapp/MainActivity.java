@@ -1,6 +1,8 @@
 package ru.smeleyka.myweatherapp;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     private TextView textView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +41,8 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FireMissilesDialogFragment fireDialog = new FireMissilesDialogFragment();
-                fireDialog.show();
-
-                //to_weather_activity(weathercast.get_weather(spinner.getSelectedItemPosition()));
+                to_weather_activity(weathercast.get_weather(spinner.getSelectedItemPosition()));
+                createDialog();
             }
         });
     }
@@ -100,6 +101,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "DESTROY");
+    }
+
+    public void createDialog() {
+        AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(this);
+        builder.setTitle("Внимание")
+                .setMessage("Нет подходящей для запуска активити").setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        })
+
+
+//                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//                   // public void onClick(DialogInterface dialog, int which) {
+//                        // continue with delete
+//                    //}
+//                })
+//                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        // do nothing
+//                    }
+//                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
 }
