@@ -1,8 +1,6 @@
 package ru.smeleyka.myweatherapp;
 
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -41,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                to_weather_activity(weathercast.get_weather(spinner.getSelectedItemPosition()));
-                createDialog();
+                //to_weather_activity(weathercast.get_weather(spinner.getSelectedItemPosition()));
+                to_weather_activity(weathercast.get_weather());
             }
         });
     }
@@ -54,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void to_weather_activity(String weather) {
+        Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
+        intent.putExtra(WEATHER_ACTIVITY_INTENT, weather);
+        startActivityForResult(intent, WEATHER_ACTIVITY_RCODE);
+    }
+
+    private void to_weather_activity(int weather) {
         Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
         intent.putExtra(WEATHER_ACTIVITY_INTENT, weather);
         startActivityForResult(intent, WEATHER_ACTIVITY_RCODE);
@@ -87,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putInt("spinner", spinner.getSelectedItemPosition());
-        editor.commit();
+        editor.apply();
     }
 
     @Override
@@ -103,31 +107,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "DESTROY");
     }
 
-    public void createDialog() {
-        AlertDialog.Builder builder;
-        builder = new AlertDialog.Builder(this);
-        builder.setTitle("Внимание")
-                .setMessage("Нет подходящей для запуска активити").setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        })
-
-
-//                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-//                   // public void onClick(DialogInterface dialog, int which) {
-//                        // continue with delete
-//                    //}
-//                })
-//                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        // do nothing
-//                    }
-//                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
-    }
 
 }
 

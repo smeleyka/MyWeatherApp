@@ -12,7 +12,11 @@ public class WeatherCast {
     }
 
     public String get_weather (int id){
-        if (id >= 0 && id < weather.length) return weather[id];
+       if (id >= 0 && id < weather.length) return weather[id];
         return null;
+    }
+    public int get_weather (){
+        int temp = 20-(int)Math.random()*20;
+        return temp;
     }
 }

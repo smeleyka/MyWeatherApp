@@ -7,6 +7,8 @@
     <string name="for_who_textedit">Кому отправить</string>
     <string name="back_btn_text">Вернись домой</string>
     <string name="error">Нет подходящих Активити</string>
+    <string name="dialog_warning">Внимание</string>
+    <string name="dialog_text">Нет подходящего для запуска приложения</string>
 
     <string-array name="city_list">Список городов>
         <item>Москва</item>
