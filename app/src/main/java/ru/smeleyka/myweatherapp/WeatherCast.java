@@ -16,7 +16,7 @@ public class WeatherCast {
         return null;
     }
     public int get_weather (){
-        int temp = 20-(int)Math.random()*20;
+        int temp = 25-(int)(Math.random()*50);
         return temp;
     }
 }

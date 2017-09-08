@@ -9,23 +9,50 @@
 
     <TextView
         android:layout_marginTop="10dp"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/select_city"
         android:textSize="20sp"/>
 
     <Spinner
-        android:layout_marginTop="10dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:layout_marginTop="40dp"
         android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:entries="@array/city_list"
-        android:textSize="20sp"
         android:gravity="center"
         android:layout_gravity="center"/>
 
+
+    <Switch
+        android:layout_marginTop="40dp"
+        android:id="@+id/switch_wind"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ветер"
+        android:textSize="20sp"/>
+
+    <Switch
+        android:layout_marginTop="10dp"
+        android:id="@+id/switch_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Давление"
+        android:textSize="20sp"/>
+
+    <Switch
+        android:layout_marginTop="10dp"
+        android:id="@+id/switch_hum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Влажность"
+        android:textSize="20sp"/>
+
     <Button
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="40dp"
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,13 +64,6 @@
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/weather_cast"
         android:textSize="18sp"/>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/cloudy" />
 
 </LinearLayout>

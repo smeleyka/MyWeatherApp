@@ -13,27 +13,57 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class WeatherActivity extends AppCompatActivity {
-    private static final String TAG = "WeatherActivity.class";
-    private static final String WEATHER_ACTIVITY_INTENT = "weather_act";
+    private static final String TAG = WeatherActivity.class.getSimpleName();
+    private static final String WEATHER_ACTIVITY_TEMP = "weather_temp";
+    private static final String WEATHER_ACTIVITY_FLAG_WIND = "weather_flag_wind";
+    private static final String WEATHER_ACTIVITY_FLAG_BAR = "weather_flag_bar";
+    private static final String WEATHER_ACTIVITY_FLAG_HUM = "weather_flag_hum";
     TextView textView;
+    TextView textWind;
+    TextView textBar;
+    TextView textHum;
     Button buttonSend;
     Button buttonBack;
     EditText edittext;
+
+    Intent result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "CREATE");
         setContentView(R.layout.activity_weather);
-        Intent intent = getIntent();
-        Bundle b = intent.getExtras();
-        textView = (TextView) findViewById(R.id.weather_text_view);
+        textView = (TextView) findViewById(R.id.weather_temp);
+        textWind = (TextView) findViewById(R.id.weather_wind);
+        textBar = (TextView) findViewById(R.id.weather_bar);
+        textHum = (TextView) findViewById(R.id.weather_hum);
         buttonSend = (Button) findViewById(R.id.button_send);
         buttonBack = (Button) findViewById(R.id.button_back);
         edittext = (EditText) findViewById(R.id.editText);
+
+
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
         if (b != null) {
-            //textView.setText((String) b.get(WEATHER_ACTIVITY_INTENT));
-            textView.setText(b.get(WEATHER_ACTIVITY_INTENT).toString());
+            textView.setText(b.get(WEATHER_ACTIVITY_TEMP).toString());
+            if ((boolean) b.get(WEATHER_ACTIVITY_FLAG_WIND)) {
+                textWind.setVisibility(View.VISIBLE);
+            }
+            else {
+                textWind.setVisibility(View.GONE);
+            }
+            if ((boolean) b.get(WEATHER_ACTIVITY_FLAG_BAR)) {
+                textBar.setVisibility(View.VISIBLE);
+            }
+            else {
+                textBar.setVisibility(View.GONE);
+            }
+            if ((boolean) b.get(WEATHER_ACTIVITY_FLAG_HUM)) {
+                textHum.setVisibility(View.VISIBLE);
+            }
+            else {
+                textHum.setVisibility(View.GONE);
+            }
         }
 
         buttonSend.setOnClickListener(new View.OnClickListener() {
@@ -54,12 +84,12 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void sendSms(String sms, String who) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.putExtra("address", who);
-        intent.putExtra("sms_body", sms);
-        intent.setType("vnd.android-dir/mms-sms");
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
+        Intent result = new Intent(Intent.ACTION_VIEW);
+        result.putExtra("address", who);
+        result.putExtra("sms_body", sms);
+        result.setType("vnd.android-dir/mms-sms");
+        if (result.resolveActivity(getPackageManager()) != null) {
+            startActivity(result);
         } else {
             showWarnDialog();
             Log.d(TAG, "There is no suitable activity");
@@ -69,9 +99,10 @@ public class WeatherActivity extends AppCompatActivity {
 
     private void returnActivityResult(String result) {
         Intent intent = new Intent();
-        intent.putExtra(WEATHER_ACTIVITY_INTENT, result);
+        intent.putExtra(WEATHER_ACTIVITY_TEMP, result);
         setResult(RESULT_OK, intent);
-        //finish();
+        System.out.println("RESULT WAS SEND");
+        finish();
     }
 
     public void showWarnDialog() {
@@ -87,6 +118,14 @@ public class WeatherActivity extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        System.out.println("RETURN PRESSED");
+        returnActivityResult(edittext.getText().toString());
+        System.out.println("RETURN RELEASED");
     }
 
     @Override
@@ -111,7 +150,7 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "PAUSE");
-        returnActivityResult(edittext.getText().toString());
+
 
     }
 
