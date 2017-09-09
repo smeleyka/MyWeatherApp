@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
     <TextView
@@ -32,7 +34,7 @@
         android:id="@+id/switch_wind"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ветер"
+        android:text="@string/wind_text"
         android:textSize="20sp"/>
 
     <Switch
@@ -40,7 +42,7 @@
         android:id="@+id/switch_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Давление"
+        android:text="@string/Barrometer_text"
         android:textSize="20sp"/>
 
     <Switch
@@ -48,7 +50,7 @@
         android:id="@+id/switch_hum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Влажность"
+        android:text="@string/humydity_text"
         android:textSize="20sp"/>
 
     <Button
@@ -60,10 +62,12 @@
         android:textSize="18sp"/>
 
     <TextView
-        android:id="@+id/weather_cast"
+        android:id="@+id/result_text"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"/>
 
-</LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

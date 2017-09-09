@@ -14,10 +14,17 @@ import android.widget.TextView;
 
 public class WeatherActivity extends AppCompatActivity {
     private static final String TAG = WeatherActivity.class.getSimpleName();
-    private static final String WEATHER_ACTIVITY_TEMP = "weather_temp";
-    private static final String WEATHER_ACTIVITY_FLAG_WIND = "weather_flag_wind";
-    private static final String WEATHER_ACTIVITY_FLAG_BAR = "weather_flag_bar";
-    private static final String WEATHER_ACTIVITY_FLAG_HUM = "weather_flag_hum";
+    private static final String CITY = "weather_city";
+    private static final String TEMPERATURE = "temperature";
+    private static final String WIND = "wind";
+    private static final String BAR = "bar";
+    private static final String HUM = "hum";
+    private static final String FLAG_WIND = "weather_flag_wind";
+    private static final String FLAG_BAR = "weather_flag_bar";
+    private static final String FLAG_HUM = "weather_flag_hum";
+    private static final String RESULT = "result";
+    private static final String SPACE = " ";
+    TextView textCity;
     TextView textView;
     TextView textWind;
     TextView textBar;
@@ -26,13 +33,12 @@ public class WeatherActivity extends AppCompatActivity {
     Button buttonBack;
     EditText edittext;
 
-    Intent result;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "CREATE");
         setContentView(R.layout.activity_weather);
+        textCity = (TextView) findViewById(R.id.weather_city);
         textView = (TextView) findViewById(R.id.weather_temp);
         textWind = (TextView) findViewById(R.id.weather_wind);
         textBar = (TextView) findViewById(R.id.weather_bar);
@@ -42,28 +48,9 @@ public class WeatherActivity extends AppCompatActivity {
         edittext = (EditText) findViewById(R.id.editText);
 
 
-        Intent intent = getIntent();
-        Bundle b = intent.getExtras();
-        if (b != null) {
-            textView.setText(b.get(WEATHER_ACTIVITY_TEMP).toString());
-            if ((boolean) b.get(WEATHER_ACTIVITY_FLAG_WIND)) {
-                textWind.setVisibility(View.VISIBLE);
-            }
-            else {
-                textWind.setVisibility(View.GONE);
-            }
-            if ((boolean) b.get(WEATHER_ACTIVITY_FLAG_BAR)) {
-                textBar.setVisibility(View.VISIBLE);
-            }
-            else {
-                textBar.setVisibility(View.GONE);
-            }
-            if ((boolean) b.get(WEATHER_ACTIVITY_FLAG_HUM)) {
-                textHum.setVisibility(View.VISIBLE);
-            }
-            else {
-                textHum.setVisibility(View.GONE);
-            }
+
+        if (getIntent() != null) {
+            setViewVisibility(getIntent().getExtras());
         }
 
         buttonSend.setOnClickListener(new View.OnClickListener() {
@@ -79,30 +66,56 @@ public class WeatherActivity extends AppCompatActivity {
                 returnActivityResult(edittext.getText().toString());
             }
         });
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
 
+    private void setViewVisibility(Bundle b){
+        textCity.setText(b.get(CITY).toString());
+        textView.setText(b.get(TEMPERATURE).toString()+SPACE+getString(R.string.temperature_symb));
+        if ((boolean) b.get(FLAG_WIND)) {
+            textWind.setText(getString(R.string.wind)+SPACE+(int)b.get(WIND)+SPACE+getString(R.string.wind_symb));
+            System.out.println((int)b.get(WIND));
+            textWind.setVisibility(View.VISIBLE);
+        }
+        else {
+            textWind.setVisibility(View.GONE);
+        }
+        if ((boolean) b.get(FLAG_BAR)) {
+            textBar.setText(getString(R.string.barometer)+SPACE+(int)b.get(BAR)+SPACE+getString(R.string.barometer_symb));
+            textBar.setVisibility(View.VISIBLE);
+        }
+        else {
+            textBar.setVisibility(View.GONE);
+        }
+        if ((boolean) b.get(FLAG_HUM)) {
+            textHum.setText(getString(R.string.humidyti)+SPACE+(int)b.get(HUM)+"%");
+            textHum.setVisibility(View.VISIBLE);
+        }
+        else {
+            textHum.setVisibility(View.GONE);
+        }
     }
 
     private void sendSms(String sms, String who) {
-        Intent result = new Intent(Intent.ACTION_VIEW);
-        result.putExtra("address", who);
-        result.putExtra("sms_body", sms);
-        result.setType("vnd.android-dir/mms-sms");
-        if (result.resolveActivity(getPackageManager()) != null) {
-            startActivity(result);
+        Intent sendSms = new Intent(Intent.ACTION_VIEW);
+        sendSms.putExtra("address", who);
+        sendSms.putExtra("sms_body", sms);
+        sendSms.setType("vnd.android-dir/mms-sms");
+        if (sendSms.resolveActivity(getPackageManager()) != null) {
+            startActivity(sendSms);
         } else {
             showWarnDialog();
             Log.d(TAG, "There is no suitable activity");
         }
     }
 
-
     private void returnActivityResult(String result) {
-        Intent intent = new Intent();
-        intent.putExtra(WEATHER_ACTIVITY_TEMP, result);
-        setResult(RESULT_OK, intent);
-        System.out.println("RESULT WAS SEND");
-        finish();
+        Intent resultData = new Intent();
+        resultData.putExtra(RESULT, result);
+        if (getParent() == null) {
+            setResult(RESULT_OK, resultData);
+        } else {
+            getParent().setResult(RESULT_OK, resultData);
+        }
     }
 
     public void showWarnDialog() {
@@ -112,7 +125,6 @@ public class WeatherActivity extends AppCompatActivity {
                 .setMessage(R.string.dialog_text).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
             }
         })
                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -122,10 +134,8 @@ public class WeatherActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        System.out.println("RETURN PRESSED");
         returnActivityResult(edittext.getText().toString());
-        System.out.println("RETURN RELEASED");
+        super.onBackPressed();
     }
 
     @Override
@@ -150,7 +160,6 @@ public class WeatherActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "PAUSE");
-
 
     }
 

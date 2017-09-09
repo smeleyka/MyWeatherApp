@@ -16,18 +16,20 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String PREFS_NAME = "MyPrefsFile";
-    private static final String WEATHER_ACTIVITY_TEMP = "weather_temp";
-    private static final String WEATHER_ACTIVITY_FLAG_WIND = "weather_flag_wind";
-    private static final String WEATHER_ACTIVITY_FLAG_BAR = "weather_flag_bar";
-    private static final String WEATHER_ACTIVITY_FLAG_HUM = "weather_flag_hum";
-    private static final int WEATHER_ACTIVITY_RCODE = 666;
+    private static final String SPINNER = "spinner";
+    private static final String FLAG_WIND = "weather_flag_wind";
+    private static final String FLAG_BAR = "weather_flag_bar";
+    private static final String FLAG_HUM = "weather_flag_hum";
+    private static final String RESULT = "result";
+    private static final int RCODE = 666;
+    private SharedPreferences savedSettings;
     private WeatherCast weathercast;
     private Spinner spinner;
     private Button button;
-    private TextView textView;
+    private TextView resultText;
     private Switch switchWind;
     private Switch switchBar;
-    private Switch switchHun;
+    private Switch switchHum;
 
 
     @Override
@@ -37,22 +39,45 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         button = (Button) findViewById(R.id.button);
         spinner = (Spinner) findViewById(R.id.spinner);
-        textView = (TextView) findViewById(R.id.weather_cast);
+        resultText = (TextView) findViewById(R.id.result_text);
         switchWind = (Switch) findViewById(R.id.switch_wind);
         switchBar = (Switch) findViewById(R.id.switch_bar);
-        switchHun = (Switch) findViewById(R.id.switch_hum);
-        weathercast = new WeatherCast(this);
+        switchHum = (Switch) findViewById(R.id.switch_hum);
 
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        spinner.setSelection(settings.getInt("spinner", 0));
-
+        loadSavedSettings();
+        weathercast = new WeatherCast();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //to_weather_activity(weathercast.get_weather(spinner.getSelectedItemPosition()));
-                to_weather_activity(weathercast.get_weather());
+                toWeatherActivity(weathercast.getWeather((String) spinner.getSelectedItem()));
             }
         });
+    }
+
+    private void loadSavedSettings() {
+        savedSettings = getSharedPreferences(PREFS_NAME, 0);
+        spinner.setSelection(savedSettings.getInt("spinner", 0));
+        switchWind.setChecked(savedSettings.getBoolean(FLAG_WIND, false));
+        switchBar.setChecked(savedSettings.getBoolean(FLAG_BAR, false));
+        switchHum.setChecked(savedSettings.getBoolean(FLAG_HUM, false));
+        savedSettings.edit().apply();
+    }
+
+    private void saveSettings() {
+        savedSettings.edit().clear().apply();
+        savedSettings.edit().putInt(SPINNER, spinner.getSelectedItemPosition()).apply();
+        savedSettings.edit().putBoolean(FLAG_WIND, switchWind.isChecked()).apply();
+        savedSettings.edit().putBoolean(FLAG_BAR, switchBar.isChecked()).apply();
+        savedSettings.edit().putBoolean(FLAG_HUM, switchHum.isChecked()).apply();
+    }
+
+    private void toWeatherActivity(Bundle weather) {
+        Intent intent = new Intent(this, WeatherActivity.class);
+        intent.putExtras(weather);
+        intent.putExtra(FLAG_WIND, switchWind.isChecked());
+        intent.putExtra(FLAG_BAR, switchBar.isChecked());
+        intent.putExtra(FLAG_HUM, switchHum.isChecked());
+        startActivityForResult(intent, RCODE);
     }
 
     @Override
@@ -61,33 +86,15 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "STOP");
     }
 
-    private void to_weather_activity(String weather) {
-        Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
-        intent.putExtra(WEATHER_ACTIVITY_TEMP, weather);
-        startActivityForResult(intent, WEATHER_ACTIVITY_RCODE);
-    }
-
-    private void to_weather_activity(int weather) {
-        Intent intent = new Intent(this, WeatherActivity.class);
-        intent.putExtra(WEATHER_ACTIVITY_TEMP, weather);
-        intent.putExtra(WEATHER_ACTIVITY_FLAG_WIND, switchWind.isChecked());
-        intent.putExtra(WEATHER_ACTIVITY_FLAG_BAR, switchBar.isChecked());
-        intent.putExtra(WEATHER_ACTIVITY_FLAG_HUM, switchHun.isChecked());
-        startActivityForResult(intent, WEATHER_ACTIVITY_RCODE);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println("ON ACTIVITY RESULT");
-
-        if (data == null) {
-            System.out.println("BUNDLE EMPTY");
+        if (resultCode != RESULT_OK) {
             return;
-
         }
-        System.out.println("PARSING BUNDLE");
-        String name = data.getStringExtra(WEATHER_ACTIVITY_TEMP);
-        textView.setText(name);
+        if (requestCode == RCODE) {
+            String name = data.getStringExtra(RESULT);
+            resultText.setText(name);
+        }
     }
 
     @Override
@@ -104,12 +111,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
+        saveSettings();
         super.onPause();
         Log.d(TAG, "PAUSE");
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putInt("spinner", spinner.getSelectedItemPosition());
-        editor.apply();
     }
 
     @Override
@@ -118,13 +122,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "RESTART");
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "DESTROY");
     }
-
 
 }
 

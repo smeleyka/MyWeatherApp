@@ -9,6 +9,15 @@
     <string name="error">Нет подходящих Активити</string>
     <string name="dialog_warning">Внимание</string>
     <string name="dialog_text">Нет подходящего для запуска приложения</string>
+    <string name="wind">ветер</string>
+    <string name="barometer">давление</string>
+    <string name="humidyti">влажность</string>
+    <string name="temperature_symb">°С</string>
+    <string name="wind_symb">м/с</string>
+    <string name="barometer_symb">мм рт.ст.</string>
+    <string name="wind_text">Ветер</string>
+    <string name="Barrometer_text">Давление</string>
+    <string name="humydity_text">Влажность</string>
 
     <string-array name="city_list">Список городов>
         <item>Москва</item>

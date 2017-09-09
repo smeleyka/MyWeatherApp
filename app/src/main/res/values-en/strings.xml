@@ -10,6 +10,15 @@
     <string name="error">No Activity</string>
     <string name="dialog_warning">Warning</string>
     <string name="dialog_text">There is no app for you</string>
+    <string name="wind">ветер</string>
+    <string name="pressure">давление</string>
+    <string name="humidyti">влажность</string>
+    <string name="temperature_symb">°С</string>
+    <string name="wind_symb">м/с</string>
+    <string name="bar_symb">мм рт.ст.</string>
+    <string name="wind_text">Ветер</string>
+    <string name="Barrometer_text">Давление</string>
+    <string name="humydity_text">Влажность</string>
 
     <string-array name="city_list">City List
     <item>Moscow</item>
