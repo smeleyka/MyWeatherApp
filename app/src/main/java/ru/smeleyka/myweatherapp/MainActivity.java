@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
                 toWeatherActivity(weathercast.getWeather((String) spinner.getSelectedItem()));
             }
         });
+
+        City[] cit = City.cities;
+        Log.d ("CityTEST",cit[0].toString());
     }
 
     private void loadSavedSettings() {
