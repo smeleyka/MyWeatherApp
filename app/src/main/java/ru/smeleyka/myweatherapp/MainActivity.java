@@ -12,6 +12,10 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import ru.smeleyka.myweatherapp.DB.AppDatabase;
+import ru.smeleyka.myweatherapp.DB.City;
+import ru.smeleyka.myweatherapp.DB.DBConnection;
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -34,9 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //android.support.design.widget.TextInputLayout;
+        new DBConnection(this).
         super.onCreate(savedInstanceState);
         Log.d(TAG, "CREATE");
         setContentView(R.layout.activity_main);
+        //setContentView(R.layout.);
         button = (Button) findViewById(R.id.button);
         spinner = (Spinner) findViewById(R.id.spinner);
         resultText = (TextView) findViewById(R.id.result_text);
@@ -84,12 +91,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "STOP");
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_OK) {
             return;
@@ -100,36 +101,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(TAG, "START");
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(TAG, "RESUME");
-    }
-
-    @Override
-    protected void onPause() {
-        saveSettings();
-        super.onPause();
-        Log.d(TAG, "PAUSE");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.d(TAG, "RESTART");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "DESTROY");
-    }
 
 }
 
