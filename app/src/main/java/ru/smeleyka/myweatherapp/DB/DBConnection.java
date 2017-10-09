@@ -32,8 +32,3 @@ public class DBConnection {
     }
 }
 
-@Database(entities = {City.class}, version = 1)
-abstract class AppDatabase extends RoomDatabase {
-    private static AppDatabase INSTANCE;
-    public abstract CityDao getCityDao();
-}
