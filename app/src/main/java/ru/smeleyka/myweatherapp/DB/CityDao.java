@@ -7,6 +7,8 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
+import ru.smeleyka.myweatherapp.City;
+
 /**
  * Created by smeleyka on 03.10.17.
  */

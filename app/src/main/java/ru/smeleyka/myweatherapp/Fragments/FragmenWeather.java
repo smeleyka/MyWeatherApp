@@ -1,4 +1,4 @@
-package ru.smeleyka.myweatherapp;
+package ru.smeleyka.myweatherapp.Fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -7,16 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import ru.smeleyka.myweatherapp.R;
+
 /**
- * Created by admin on 07.10.2017.
+ * Created by smeleyka on 09.10.17.
  */
 
-public class FragmentActivity extends Fragment{
+public class FragmenWeather extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.frame_layout,container,true);
+        return inflater.inflate(R.layout.fragment_weather_layout,container,true);
 
     }
 }

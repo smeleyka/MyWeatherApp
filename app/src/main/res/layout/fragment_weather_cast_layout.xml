@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       >
+
+        <ImageView
+            android:id="@+id/weather_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/weather_descr"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/weather_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/weather_descr"
+            android:layout_toEndOf="@+id/weather_img"
+            android:layout_toRightOf="@+id/weather_img"
+            android:text="TextView"
+            android:textSize="@dimen/font_medium" />
+
+        <TextView
+            android:id="@+id/weather_wind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/weather_img"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/weather_temp"
+            android:layout_toRightOf="@+id/weather_img"
+            android:text="TextView"
+            android:textSize="@dimen/font_small" />
+
+    </RelativeLayout>
+</HorizontalScrollView>

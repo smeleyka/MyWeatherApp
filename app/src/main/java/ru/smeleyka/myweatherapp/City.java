@@ -1,4 +1,4 @@
-package ru.smeleyka.myweatherapp.DB;
+package ru.smeleyka.myweatherapp;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
@@ -72,7 +72,7 @@ public class City {
         this.main = main;
     }
 
-    public class Main {
+    private class Main {
         private float temp;
         private float pressure;
         private float humidity;
@@ -120,7 +120,7 @@ public class City {
         }
     }
 
-    public class Weather {
+    private class Weather {
         private int id;
         private String main;
         private String description;

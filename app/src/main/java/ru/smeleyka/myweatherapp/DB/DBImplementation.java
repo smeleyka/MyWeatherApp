@@ -5,26 +5,21 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import ru.smeleyka.myweatherapp.City;
+
 /**
  * Created by smeleyka on 09.10.17.
  */
 
 public class DBImplementation {
-    final static String WEATHER_API = "http://api.openweathermap.org/data/2.5/weather?units=metric&lang=ru&q=%s&APPID=%s";
-    final static String FORECAST_API = "http://api.openweathermap.org/data/2.5/forecast?units=metric&lang=ru&q=%s&APPID=%s";
-    final static String FIND_API = "http://api.openweathermap.org/data/2.5/find?units=metric&lang=ru&q=%s&APPID=%s";
-    final static String DAY = "weather";
-    final static String APPID = "2a7f0c1303d85d0e6c4d50280db14801";
-    final static String CITY = "vyborg";
-    final static String KEY = "x-api-key";
-    //GsonCity city;
-    static Context context;
-    static AppDatabase db= null;
+
+    private static Context context=null;
+    private static AppDatabase db= null;
 
     private static final DBImplementation ourInstance = new DBImplementation();
 
-    public static DBImplementation getInstance(Context c) {
-
+   public static DBImplementation getInstance(Context c) {
+        context = c;
         return ourInstance;
     }
 
@@ -32,17 +27,28 @@ public class DBImplementation {
 
     }
 
-    public static AppDatabase getDb (Context c){
-        if (db==null) {
-            db = Room.databaseBuilder(c.getApplicationContext(),
+    public AppDatabase getDb (){
+        if (this.db==null) {
+            db = Room.databaseBuilder(context.getApplicationContext(),
                     AppDatabase.class, "myweather.db").build();
         }
         return db;
     }
 
-    public static City getCity(String cityName){
-        return null;
+    public City getCityFromDb(String cityName){
+        if(db == null) {
+            return null;
+        }
+        return db.getCityDao().findByName(cityName);
     }
+
+    public City getCityFromDb(int Id){
+        if(db == null) {
+            return null;
+        }
+        return db.getCityDao().findById(Id);
+    }
+
 }
 
 

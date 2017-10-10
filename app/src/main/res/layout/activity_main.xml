@@ -10,75 +10,22 @@
         android:orientation="vertical">
 
 
-        <TextView
+        <fragment
+            android:id="@+id/fragment_weather"
+            android:name="ru.smeleyka.myweatherapp.Fragments.FragmenWeather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="@string/select_city"
-            android:textSize="20sp" />
+            tools:layout="@layout/fragment_weather_layout">
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        </fragment>
 
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="40dp"
-            android:entries="@array/city_list"
-            android:gravity="center"
-            android:scaleX="1.5"
-            android:scaleY="1.5" />
-
-
-        <Switch
-            android:id="@+id/switch_wind"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="@string/wind_text"
-            android:textSize="20sp" />
-
-        <Switch
-            android:id="@+id/switch_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/Barrometer_text"
-            android:textSize="20sp" />
-
-        <Switch
-            android:id="@+id/switch_hum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/humydity_text"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="@string/butt_show_wheather"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/result_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textSize="18sp" />
 
         <fragment
-            android:id="@+id/fragment_id"
-            android:name="ru.smeleyka.myweatherapp.FragmentActivity"
+            android:id="@+id/fragment_weather_forecast"
+            android:name="ru.smeleyka.myweatherapp.Fragments.FragmentWeatherForecast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:layout="@layout/frame_layout">
+            tools:layout="@layout/fragment_weather_cast_layout">
 
         </fragment>
 
