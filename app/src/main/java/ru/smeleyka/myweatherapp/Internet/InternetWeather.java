@@ -57,6 +57,7 @@ public class InternetWeather {
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     //connection.addRequestProperty(KEY, "2a7f0c1303d85d0e6c4d50280db14801");
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    gson.newJsonReader(reader);
                     String tempVariable;
 
                     while ((tempVariable = reader.readLine()) != null) {
@@ -70,6 +71,9 @@ public class InternetWeather {
                 }
             }
         }).start();
+
+        gson.newJsonReader()
+        gson.fromJson()
 
         city = gson.fromJson(rawData.toString(), City.class);
         return city;
